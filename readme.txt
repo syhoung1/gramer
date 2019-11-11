@@ -1,0 +1,2 @@
+data source url: "https://think.cs.vt.edu/corgis/csv/food/food.html#"
+<div>Icons made by <a href="https://www.freepik.com/?__hstc=57440181.9ca665748d9439225787edade3e7c16c.1562542470636.1562551956429.1562794118768.3&__hssc=57440181.3.1562794118768&__hsfp=997709570" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>

@@ -1,0 +1,140 @@
+{% extends 'main/header.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
+    <div class="container col-6" style="margin-top:5em">
+        <div class="row">
+            <div class="col col-md-6 marquee-container">
+                <img src="{% static "images/basket.svg" %}" class="marquee img-responsive">
+            </div>
+            <div class="col col-md-6">
+                <div class="row ingredient-display">
+                    <h3>This ingredient's category:</h3>
+                    <p id="category-display-text">{{ ingredient.category }}</p>
+                </div>
+                <div class="row ingredient-display">
+                    <h3>More specifically:</h3>
+                    <p id="description-display-text">{{ ingredient.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row form-row">
+            <div id="search-container" class="col" align="center">
+                <p>What ingredient do you want to explore?</p>
+                <form id="ingredient-search">
+                    <div class="form-group">
+                        {{ search_form }}
+                        <input type="submit" id="find-button" class="button" value="Find" required>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row form-row">
+            <div id="convert-container" class="col">
+                <form id="convert" class="number-form">
+                    {{ convert_form.amount }}
+                    {{ convert_form.unit_from }} to
+                    {{ convert_form.unit_to }}
+                    <input type="submit" id="convert-button" class="button" value="Convert" required>
+                </form>
+                <div class="results-display">
+                    <p id="conversion" class="display-example">ex. 3 cups = 48 tbsp</p>
+                </div>
+            </div>
+        </div>
+        <div class="row form-row" style="margin-top:.5em;">
+            <div id="si-container" class="col">
+                <form id="si" class="number-form">
+                    {{ convert_form.amount }}
+                    {{ convert_form.unit_from }}
+                    <input type="submit" id="si-button" class="button" value="Amount" required>
+                </form>
+                <div class="results-display">
+                    <p id="si-mass" class="display-example">ex. 227 grams in 1 cup</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        $(document).ready(function(){
+            $("#search-input").autocomplete({
+                autoSelectFirst: true,
+                minLength: 2,
+                source: "/search/",
+            });
+        });
+        $(document).ready(function() {
+            $('#ingredient-search').submit(function(event) {
+                event.preventDefault();
+                var values = $(this).serialize();
+                $.ajax({
+                    type: "GET",
+                    url: "/fetch",
+                    data: values,
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#category-display-text').text(data['category']);
+                        $('#description-display-text').text(data['description']);
+                        $('#search-input').val('');
+                    }
+                });
+            });
+            $('#convert').submit(function(event) {
+                event.preventDefault();
+                var values = $(this).serialize();
+                $.ajax({
+                    type: "GET",
+                    url: "/convert",
+                    data: values,
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#conversion').toggleClass('display-example', false);
+                        $('#conversion').toggleClass('display-real', true);
+                        $('#conversion').text(data['amount'] + " " +
+                                              data['unit_from'] + " = " +
+                                              data['conversion'] + " " +
+                                              data['unit_to']);
+                    }
+                });
+            });
+            $('#si').submit(function(event) {
+                event.preventDefault();
+                var values = $(this).serialize();
+                $.ajax({
+                    type: "GET",
+                    url: "/si",
+                    data: values,
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data['fail']) {
+                            $('#si-mass').text(data['fail']);
+                        } else {
+                            $('#si-mass').toggleClass('display-example', false);
+                            $('#si-mass').toggleClass('display-real', true);
+                            $('#si-mass').text("there are " +
+                                           data['mass'] + " grams in " +
+                                           data['amount'] + " " +
+                                           data['unit']);
+                        };
+                    }
+                });
+            })
+            $('input').mousedown(function(event) {
+                var focusOnMouseDown;
+                if ($(this).is(":focus")) {
+                    focusOnMouseDown = true;
+                } else {
+                    focusOnMouseDown = false;
+                }
+                $('input').mouseup(function(e) {
+                    if (focusOnMouseDown) {
+                        $(this).blur();
+                        focusOnMouseDown = false;
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

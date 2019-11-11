@@ -1,0 +1,234 @@
+/* TODO: add table of content and labels if this file gets too lengthy */
+
+/*
+TABLE OF CONTENTS
+    1) general html tags (p, h3, etc)
+    2) main ingredient icon
+    3) category and description displays
+    4) forms, input fields, and buttons for submit
+    5) autcomplete styling */
+
+/* rules for tags in general */
+
+body {
+    font-size: calc(10px + 1vw);
+}
+
+h3 {
+    font-size: calc(10px + 1.5vw)
+}
+
+p {
+    clear: both;
+}
+
+img {
+    height: auto;
+}
+
+input {
+    text-align: center;
+    width: 100%;
+}
+
+/* rules for icon */
+.marquee-container {
+    display: table;
+    width: 100%;
+    margin: auto;
+}
+
+.marquee {
+    display: table-cell;
+    margin: auto;
+}
+
+/* rules for display texts */
+.ingredient-display {
+    text-align: center;
+    align-items: center;
+}
+
+.display-example {
+  opacity: .5;
+}
+
+.display-actual {
+  opacity: .8
+}
+
+#category-display-text, #description-display-text {
+    opacity: .7;
+}
+
+#category-display-text, #description-display-text,
+.ingredient-display > h3, .ingredient-display > h3 {
+    width: 100%;
+}
+
+
+/* rules for forms, input boxes and buttons */
+.form-row {
+    margin-top: 2.5em;
+}
+
+.form-input-box {
+    border-width: 1.5px 0 1.5px 0;
+    border-color: rgba(0,0,0,.7);
+    border-top-color: transparent;
+    transition: all .12s ease;
+}
+
+.form-input-box:focus {
+    border-width: 1.5px 0 1.5px 0;
+    border-color: rgba(0,0,0,.7);
+    outline: none;
+    transition: all .12s ease;
+}
+
+.form-group {
+    height: 2em;
+    position: relative;
+    width: 100%;
+}
+
+.results-display {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.results-display > p {
+    width: 100%;
+    text-align: center;
+}
+
+.button {
+    visibility: hidden;
+    position: absolute;
+    background: transparent;
+    color: black;
+    opacity: .1;
+    width: auto;
+    border: none;
+    -webkit-transition: all .25s ease-out;
+       -moz-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+}
+
+.choices {
+    background: white;
+    border: none;
+    border-left: 2px solid;
+    border-right: 2px solid;
+    border-color: rgba(0,0,0,.7);
+    width: 33%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+}
+
+.choices:focus {
+    outline: none;
+}
+
+.number-form {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    width: 50%;
+    height: 3em;
+}
+
+.number-input {
+    min-width: 0;
+}
+
+#search-input {
+    width: 100%;
+    height: 3em;
+    position: absolute;
+    left:0;
+}
+
+#search-input:focus ~ #find-button,
+#si-container  .number-input:focus ~ #si-button,
+#convert-container  .number-input:focus ~ #convert-button {
+    opacity: .7;
+    visibility: visible;
+    width: auto;
+    transform: translateX(-100%);
+    -webkit-transition: all .1s ease-out;
+       -moz-transition: all .1s ease-out;
+         -o-transition: all .1s ease-out;
+            transition: all .1s ease-out;
+}
+
+#search-input:focus ~ #find-button:hover,
+#si-container  .number-input:focus ~ #si-button:hover,
+#convert-container  .number-input:focus ~ #convert-button:hover {
+    width: auto;
+    transform: scale(1.1) translateX(-100%);
+    transform-origin: left center;
+}
+
+#find-button {
+    left: 0;
+    height: 3em;
+}
+
+#convert-button, #si-button {
+    left: 0;
+}
+
+#find-button:focus, #convert-button:hover {
+    outline: none;
+}
+
+#convert-container, #si-container {
+    display: flex;
+}
+
+#search-container, {
+    display: flex;
+    flex-direction: column;
+}
+
+#si-container {
+    width: 50%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Controlling autocomplete dropdown menu and related items */
+
+.ui-autocomplete {
+    position: absolute;
+    background: white;
+    font-size: 1.4vw;
+    opacity: .75;
+    list-style-type: none;
+    padding: 0;
+    max-height: 50%;
+    overflow-y: scroll;
+}
+
+.ui-autocomplete:hover {
+    cursor: pointer;
+}
+
+.ui-menu .ui-menu-item a{
+    color: black;
+    background: transparent;
+    text-decoration: none;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+}
