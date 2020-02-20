@@ -113,10 +113,11 @@
                         } else {
                             $('#si-mass').toggleClass('display-example', false);
                             $('#si-mass').toggleClass('display-real', true);
-                            $('#si-mass').text("there are " +
+                            $('#si-mass').text("There are " +
                                            data['mass'] + " grams in " +
                                            data['amount'] + " " +
-                                           data['unit']);
+                                           data['unit'] +
+                                           " of this ingredient");
                         };
                     }
                 });

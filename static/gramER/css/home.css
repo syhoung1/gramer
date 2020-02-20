@@ -53,8 +53,10 @@ input {
   opacity: .5;
 }
 
-.display-actual {
-  opacity: .8
+.display-real {
+  padding-left: 5px;
+  padding-right: 5px;
+  opacity: .8;
 }
 
 #category-display-text, #description-display-text {
